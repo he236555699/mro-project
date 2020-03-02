@@ -58,6 +58,7 @@ user <|-- operator
 (禁用云筑SSKU) as disableYzwSSKU
 (删除云筑SSKU) as removeYzwSSKU
 (云筑SSKU设置) as yzwSSKUSetting
+(查询供应商报价) as searchQuotation
 (启用云筑商品) as enableYzwItem
 (禁用云筑商品) as disableYzwItem
 (上传SSPU) as uploadYzwSSPU
@@ -126,10 +127,11 @@ yzwItem --> pageSearchYzwItem : item_yzw_spu、item_yzw_sku、item_yzw_unit
 yzwItem --> createYzwItem : item_yzw_spu
 yzwItem --> updateYzwSSKU : item_yzw_sku
 updateYzwSSKU --> yzwSSKUList
-updateYzwSSKU --> createYzwSSKU
+updateYzwSSKU --> createYzwSSKU : item_yzw_sku、item_yzw_sku_attribute
 updateYzwSSKU --> enableYzwSSKU
 updateYzwSSKU --> disableYzwSSKU
 updateYzwSSKU --> yzwSSKUSetting
+yzwSSKUSetting --> searchQuotation : item_yzw_sku、item_supplier_sku、item_yzw_spu、item_unit、basis_supplier、item_warehouse_sku、item_warehouse_sku_price、item_warehouse
 updateYzwSSKU --> removeYzwSSKU
 createYzwSSKU --> getAttributesById : item_category_attribute
 yzwItem --> updateYzwSSPU
