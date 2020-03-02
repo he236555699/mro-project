@@ -1,0 +1,157 @@
+@startuml
+left to right direction
+
+:用户: as user
+:供应商: as supplier
+:采购商: as purchaser
+:运营人员: as operator
+
+user <|-- supplier
+user <|-- purchaser
+user <|-- operator
+
+(商品管理) as itemManager
+(order domain) as order
+
+(品牌管理) as brand
+(新增品牌) as createBrand
+(编辑品牌) as updateBrand
+(分页查询) as pageSearchBrand
+(删除品牌) as removeBrand
+(启用品牌) as enableBrand
+(禁用品牌) as disableBrand
+(下载模板) as downloadBrandTemplate
+(导入记录列表) as importList
+(导入excel模版) as importBrands
+
+(分类管理) as category
+(分类树) as categoryTree
+(分类列表) as categoryList
+(新增分类) as createCategory
+(复制新增) as copyCreateCategory
+(编辑分类) as updateCategory
+(启用分类) as enableCategory
+(禁用分类) as disableCategory
+(删除分类) as removeCategory
+(批量删除) as batchRemoveCategory
+
+(属性管理) as attribute
+(分页查询) as pageSearchAttr
+(新增属性) as createAttr
+(复制属性) as copyAttr
+(编辑属性) as updateAttr
+(启用属性) as enableAttr
+(禁用属性) as disableAttr
+(删除属性) as removeAttr
+(批量删除) as batchRemoveAttr
+
+(云筑商品管理) as yzwItem
+(分页查询) as pageSearchYzwItem
+(新增云筑商品) as createYzwItem
+(编辑SSPU) as updateYzwSSPU
+(编辑SSKU) as updateYzwSSKU
+(SSKU列表) as yzwSSKUList
+(新增云筑SSKU) as createYzwSSKU
+(编辑云筑SSKU) as updateYzwSSKU
+(根据分类Id获取分类属性列表) as getAttributesById
+(启用云筑SSKU) as enableYzwSSKU
+(禁用云筑SSKU) as disableYzwSSKU
+(删除云筑SSKU) as removeYzwSSKU
+(云筑SSKU设置) as yzwSSKUSetting
+(启用云筑商品) as enableYzwItem
+(禁用云筑商品) as disableYzwItem
+(上传SSPU) as uploadYzwSSPU
+(上传SSPU列表) as uploadSSPUList
+(下载SSPU模板) as downloadSSPUTemplate
+(上传SSKU) as uploadYzwSSKU
+(上传SSKU列表) as uploadSSKUList
+(下载SSKU模板) as downloadSSKUTemplate
+
+(普通仓库) as commonWarehouse
+(智能仓库) as capacityWarehouse
+(商品违规管理) as illegalItem
+(商品价格管理) as itemPrice
+(商品推荐管理) as itemRecommend
+(商品审核管理) as itemAudit
+(MRO商品管理) as mroItem
+(办公用品管理) as officeItem
+(招标清单管理) as inviteBids
+(中标清单管理) as winningBids
+(商品临时管理) as temporaryItem
+
+(询价单) as inquiry
+(报价单) as quotation
+(送货单) as delivery
+
+order -- inquiry
+order -- quotation
+order -- delivery
+
+operator -- itemManager
+
+itemManager -- brand : item_brand
+brand --> createBrand
+brand --> updateBrand
+brand --> pageSearchBrand
+updateBrand --> enableBrand
+updateBrand --> disableBrand
+updateBrand --> removeBrand
+brand --> downloadBrandTemplate
+brand --> importList : item_import_general
+brand --> importBrands : item_import_general
+
+itemManager -- category : item_category
+category --> categoryList
+categoryList --> categoryTree
+category --> createCategory
+category --> copyCreateCategory
+category --> updateCategory
+updateCategory --> enableCategory
+updateCategory --> disableCategory
+updateCategory --> removeCategory
+removeCategory --> batchRemoveCategory
+
+itemManager -- attribute : item_attribute_name、item_attribute_value
+attribute --> pageSearchAttr
+attribute --> createAttr
+createAttr --> copyAttr
+attribute --> updateAttr
+updateAttr --> enableAttr
+updateAttr --> disableAttr
+updateAttr --> removeAttr
+removeAttr --> batchRemoveAttr
+
+itemManager -- yzwItem
+yzwItem --> pageSearchYzwItem : item_yzw_spu、item_yzw_sku、item_yzw_unit
+yzwItem --> createYzwItem : item_yzw_spu
+yzwItem --> updateYzwSSKU : item_yzw_sku
+updateYzwSSKU --> yzwSSKUList
+updateYzwSSKU --> createYzwSSKU
+updateYzwSSKU --> enableYzwSSKU
+updateYzwSSKU --> disableYzwSSKU
+updateYzwSSKU --> yzwSSKUSetting
+updateYzwSSKU --> removeYzwSSKU
+createYzwSSKU --> getAttributesById : item_category_attribute
+yzwItem --> updateYzwSSPU
+yzwItem --> enableYzwItem
+yzwItem --> disableYzwItem
+yzwItem --> uploadYzwSSPU
+yzwItem --> uploadYzwSSKU
+uploadYzwSSPU --> uploadSSPUList
+uploadYzwSSPU --> downloadSSPUTemplate
+uploadYzwSSKU --> uploadSSKUList
+uploadYzwSSKU --> downloadSSKUTemplate
+
+itemManager -- commonWarehouse
+itemManager -- capacityWarehouse
+itemManager -- illegalItem
+itemManager -- itemPrice
+itemManager -- itemRecommend
+itemManager -- itemAudit
+itemManager -- mroItem
+itemManager -- officeItem
+itemManager -- inviteBids
+itemManager -- winningBids
+itemManager -- temporaryItem
+
+@enduml
